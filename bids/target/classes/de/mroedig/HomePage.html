@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div wicket:id="debugPanel"></div>
+<div wicket:id="signInPanel"></div>
+
+
+	<form wicket:id="neueAuktionsForm">
+		<fieldset name="neue Auktion erstellen">
+
+		<label>Itemname</label> <input wicket:id="itemName" type="text"/>
+		<label>Waehrung</label> <input wicket:id="waehrung" type="text"/>
+		<label>Startgebot</label> <input wicket:id="startgebot" type="number"/>
+		<label>Spiel</label> <input wicket:id="spielName" type="text"/>
+		<label>Server</label> <input wicket:id="serverName" type="text"/>
+		
+
+		<input type="submit" value="submit" /> 
+			<div wicket:id="feedback"></div>
+		</fieldset>
+	</form>
+
+
+
+
+</body>
+</html>

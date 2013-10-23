@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" [
+	<!ENTITY logDirectory "/log/idbw">
+]>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="LOG" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.out"/>	
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="LOG %d{HH:mm:ss} %-5p - %x - %m%n"/>
+		</layout>
+	</appender>
+	
+	<appender name="LOG-FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="maxFileSize" value="20MB" />
+		<param name="maxBackupIndex" value="5" />
+		<param name="file" value="&logDirectory;/messages.log" />
+		<param name="encoding" value="iso-8859-1" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd.MM.yyyy HH:mm:ss,SSS} %-5p - %x - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="PROTOKOLL" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.out"/>
+		<param name="encoding" value="iso-8859-1"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="PROTOKOLL %-5p - %x - %m%n"/>
+		</layout>
+	</appender>
+	
+	<appender name="PROTOKOLL-FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="encoding" value="iso-8859-1" />
+		<param name="maxFileSize" value="20MB" />
+		<param name="maxBackupIndex" value="5" />
+		<param name="file" value="&logDirectory;/protokoll.log" />
+		<param name="encoding" value="iso-8859-1" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd.MM.yyyy HH:mm:ss,SSS} %-5p - %x - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="DATABASE" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.out"/>
+		<param name="encoding" value="iso-8859-1"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="DATABASE %-5p - %x - %m%n"/>
+		</layout>
+	</appender>
+	
+	<appender name="DATABASE-FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="maxFileSize" value="20MB" />
+		<param name="maxBackupIndex" value="5" />
+		<param name="file" value="&logDirectory;/database.log" />
+		<param name="encoding" value="iso-8859-1" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd.MM.yyyy HH:mm:ss,SSS} %-5p - %x - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="FACHREFERAT-FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="maxFileSize" value="20MB" />
+		<param name="maxBackupIndex" value="5" />
+		<param name="file" value="&logDirectory;/fachreferat.log" />
+		<param name="encoding" value="iso-8859-1" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+
+	<logger name="database" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="DATABASE"/>
+		<appender-ref ref="DATABASE-FILE"/>
+	</logger>
+
+	<logger name="protokoll" additivity="false">
+		<level value="INFO"/>
+		<appender-ref ref="PROTOKOLL"/>
+		<appender-ref ref="PROTOKOLL-FILE"/>
+	</logger>
+	
+	<logger name="fachreferat" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="FACHREFERAT-FILE"/>
+	</logger>
+	
+	<!-- Framework-Klassen -->
+	<logger name="de.bayern" additivity="false">
+		<level value="INFO"/>
+		<appender-ref ref="LOG"/>
+		<appender-ref ref="LOG-FILE"/>
+	</logger>	
+	
+<logger
+        name=" org.hibernate.tool.hbm2ddl  "
+        additivity="false">
+        <level
+            value="DEBUG" />
+        <appender-ref
+            ref="LOG" />
+        <appender-ref
+            ref="LOG-FILE" />
+        <appender-ref ref="ERROR-FILE" />
+    </logger>
+
+	
+	<logger name="de.bayern.domain.UnitOfWork" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="LOG"/>
+		<appender-ref ref="LOG-FILE"/>
+	</logger>	
+
+	<!-- StMLF-Klassen, auch im eigenen Projekt -->
+	<logger name="de.bayern.stmlf" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="LOG"/>
+		<appender-ref ref="LOG-FILE"/>
+	</logger>	
+	
+	<!-- Ausblenden der Locale-Warnings bei ResourceBundles -->
+	<logger name="org.apache.struts.util.PropertyMessageResources" additivity="false">
+		<level value="ERROR"/>
+		<appender-ref ref="LOG"/>
+	</logger>	
+   
+	<root>
+		<level value="WARN"/>
+		<appender-ref ref="LOG"/>
+		<appender-ref ref="LOG-FILE"/>
+	</root>
+
+</log4j:configuration>
+
