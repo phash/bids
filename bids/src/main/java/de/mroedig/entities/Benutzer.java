@@ -2,30 +2,56 @@ package de.mroedig.entities;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.apache.wicket.util.io.IClusterable;
+import org.hibernate.validator.constraints.Length;
+
 @Entity
-public class Benutzer extends BasisEntity<Long> {
+public class Benutzer extends BasisEntity<Long> implements IClusterable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4307732077374637628L;
+
+	@Column(unique = true)
 	private String benutzername;
+
+	@Length(min = 6)
 	private String passwort;
-	@OneToMany
-	private Set<Auction> auktionenAlsBieter;
 
 	@OneToMany
 	private Set<Gebot> gebote;
 
-	public Set<Auction> getAuktionenAlsBieter() {
-		return auktionenAlsBieter;
+	@ManyToMany
+	private Set<Rollen> rollen;
+
+	public Set<Rollen> getRollen() {
+		return rollen;
 	}
 
-	public void setAuktionenAlsBieter(Set<Auction> auktionenAlsBieter) {
-		this.auktionenAlsBieter = auktionenAlsBieter;
+	public void setRollen(Set<Rollen> rollen) {
+		this.rollen = rollen;
+	}
+
+	public Benutzer() {
+		super();
+		rollen = null;
+	}
+
+	public Benutzer(String uid, Set<Rollen> roles) {
+		if (uid == null) {
+			throw new IllegalArgumentException("benutzername must be not null");
+		}
+		if (roles == null) {
+			throw new IllegalArgumentException("roles must be not null");
+		}
+		benutzername = uid;
+		rollen = roles;
 	}
 
 	public Set<Gebot> getGebote() {
